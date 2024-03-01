@@ -41,28 +41,46 @@ class AddressBookGUI:
         self.add_btn.grid(row=3, column=2, padx=2, pady=2)
 
 
+
     def add_contact(self):
         name = self.name_textBox.get()
         phone = self.phone_textBox.get()
         email = self.email_textBox.get()
 
-        if name and phone and email:
-            added_successfully = self.address_book(name, phone, email)
+        if name and phone and email: 
+            added_successfully = self.address_book.add_contact(name, phone, email)
 
-            if added_successfully: 
+            if added_successfully:
                 messagebox.showinfo("success", "Contact has been added ^_^ !")
                 self.save_to_json()
             else: 
                 messagebox.showerror("error", "Detected duplicate contact ~_~ .")
+        else:
+            messagebox.showerror("Error", "Please fill in all field needed U_U .")
+
+    def save_to_json(self):
+        with open ("address_book.json", "w") as json_file: 
+            json.dump(self.address_book.contacts, json_file)
+
+    def search_contact(self): 
+        name = self.name_textBox.get()
+        if name: 
+            contact = self.address_book.search_contact(name)
+            if contact:
+                messagebox.showinfo("Contact Details", f"Name: {name}\nPhone: {contact['phone']}\nEmail: {contact['email']}")
+            else: 
+                messagebox.showerror("Error", "cannot find contact")
         else: 
-            messagebox.showerror("Error", "Please fill in all field needed U_U .") 
+            messagebox.showerror("Error", "Please enter a name to search.")
 
+    def list_all(self): 
+        contacts = self.address_book.list_all()
+        if contacts:
+            list_str = "\n".join([f"Name: {con['name']}, Phone: {con['phone']}, Email: {con['email']}" for con in contacts])
+            messagebox.showinfo("All Contacts", list_str)
+        else: 
+            messagebox.showinfo("Empty", "No contact")
 
-    def save_to_json(self): 
-        with open("address_book.json", "w") as json_file:
-            json.dump(self.address_book, json_file)
-    
-    
 
 class AddressBook:
     def __init__ (self):
@@ -77,6 +95,12 @@ def main():
 if __name__ == "__main__":
     main()
 
+
+
+   
+                
+    
+    
 
        
     
