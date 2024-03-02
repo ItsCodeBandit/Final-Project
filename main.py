@@ -1,6 +1,6 @@
 # Final Project 
 # CIT 3302: Data Structures and Algorithms 
-# Address Book Project
+# Address Book Project with GUI
 # 2/28/2024
 
 import json
