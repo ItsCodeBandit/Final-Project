@@ -2,7 +2,7 @@
 # CIT 3302: Data Structures and Algorithms 
 # Address Book Project with GUI
 # 2/28/2024
-
+# for adding contact algorithm if there are no duplicates the time complexity should be O(n)
 import json
 import tkinter as tk
 from tkinter import messagebox
